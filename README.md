@@ -1,0 +1,2 @@
+# NoteHaven
+Write your thoughts.
