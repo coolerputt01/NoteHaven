@@ -116,9 +116,9 @@ body,html{
       <button class="start-btn">Start Writing✍️</button>
     </main>
     <section class="info-section">
-      <card text="Create stylized and personalized notes that truly reflect your unique ideas, style, and creativity." clss="fa-solid fa-pen-nib"></card>
-      <card text="Organize your thoughts effortlessly and access them anytime, anywhere." clss="fa-regular fa-folder"></card>
-      <card text="Stay on track with smart, customizable note templates for every need." clss="fa-solid fa-check-double"></card>
+      <card :text="Create stylized and personalized notes that truly reflect your unique ideas, style, and creativity." clss="fa-solid fa-pen-nib"></card>
+      <card :text="Organize your thoughts effortlessly and access them anytime, anywhere." clss="fa-regular fa-folder"></card>
+      <card :text="Stay on track with smart, customizable note templates for every need." clss="fa-solid fa-check-double"></card>
     </section>
   </div>
   <script type="module">
@@ -126,8 +126,7 @@ body,html{
 const Card = {
   template:`<div class="card">
     <i v-bind:class="clss"></i>
-    <p class="card-text">{{text}}
-</p>
+    <p class="card-text">{{text}} bbb</p>
   </div>`,
   props:{
     text:{
@@ -141,7 +140,6 @@ const Card = {
     
   },
   mounted(){
-    alert("Hello World")
     window.addEventListener('scroll', () => {
     const elements = document.querySelectorAll('.card');
     elements.forEach((element) => {
@@ -161,7 +159,7 @@ const Card = {
     
   });
   const startBtn = document.querySelector('.start-btn');
-  startBtn.addEventListener('click',()=>{
+  startBtn.addEventListener('click',(u)=>{
     document.location.href = '#'
   })
   }
