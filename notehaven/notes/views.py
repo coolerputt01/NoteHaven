@@ -2,4 +2,4 @@ from django.shortcuts import render
 
 # Create your views here.
 def home(request):
-	return render(request,'/workspaces/NoteHaven/notehaven/notes/templates/notes/public/index.html')
+	return render(request,'templates/index.html')
