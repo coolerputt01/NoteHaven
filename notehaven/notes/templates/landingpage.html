@@ -79,10 +79,10 @@ body,html{
   display:flex;
   align-items: center;
   background-color:#E16A14;
-  justify-content: space-evenly;
+  justify-content: center;
   flex-direction: column;
   padding: 30px;
-  height:40vh;
+  height:90vh;
 }
 .card > i{
   padding:23px;
@@ -92,9 +92,9 @@ body,html{
   font-size: 1.45em;
   transition:all 350ms;
 }
-.card > p{
+.card-text{
   width:90%;
-  font-size: 0.786em;
+  font-size: 0.7em;
   text-align: center;
   color:#fff;
 }
@@ -126,7 +126,7 @@ body,html{
 const Card = {
   template:`<div class="card">
     <i v-bind:class="clss"></i>
-    <p class="card-text">{{ctext}} bbb</p>
+    <p class="card-text">{{ ctext }}</p>
   </div>`,
   props:{
     ctext:{
