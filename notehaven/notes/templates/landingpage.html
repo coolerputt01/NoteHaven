@@ -79,10 +79,10 @@ body,html{
   display:flex;
   align-items: center;
   background-color:#E16A14;
-  justify-content: center;
+  justify-content: space-evenly;
   flex-direction: column;
   padding: 30px;
-  height:90vh;
+  height:40vh;
 }
 .card > i{
   padding:23px;
@@ -116,18 +116,14 @@ body,html{
       <button class="start-btn">Start Writing✍️</button>
     </main>
     <section class="info-section">
-      <div class="card"><p class="card-text">Create stylized and personalized notes that truly reflect your unique ideas, style, and creativity.</p> <i class="fa-solid fa-pen-nib"></i></card>
-      <div class="card"><p class="card-text">Organise your thoughts effortlessly and access them anytime, anywhere.</p> <i class="fa-regular fa-folder"></i></card>
-      <div class="card"><p class="card-text">Stay on track with smart, customizable note templates for every need."<i class="fa-solid fa-check-double"></i></card>
+      <div class="card"><i class="fa-solid fa-pen-nib"></i><p class="card-text">Create stylized and personalized notes that truly reflect your unique ideas, style, and creativity.</p></card>
+      <div class="card"> <i class="fa-regular fa-folder"></i><p class="card-text">Organise your thoughts effortlessly and access them anytime, anywhere.</p></card>
+      <div class="card"><i class="fa-solid fa-check-double"></i><p class="card-text">Stay on track with smart, customizable note templates for every need."</card>
     </section>
   </div>
   <script type="module">
     import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
     
-    alert('hello');
-    const cardText = document.querySelector('.card-text');
-    alert(cardText);
-    alert(cardText.innerHTML);
 
     window.addEventListener('scroll', () => {
     const elements = document.querySelectorAll('.card');
