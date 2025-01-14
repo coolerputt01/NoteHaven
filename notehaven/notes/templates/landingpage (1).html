@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    *{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+  font-family: "Poppins",sans-serif;
+  color:#fff;
+}
+
+body,html{
+  scroll-behavior: smooth;
+  background-color: #fff;
+}
+
+.nav-bar{
+  background-color:#000;
+  width:100vw;
+  height:10vh;
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  padding:12px;
+  position: fixed;
+  top:0;
+  transition:all 350ms;
+}
+.nav-brand > p{
+  font-size: 1.5em;
+  font-weight:bold;
+  letter-spacing: 0.05em;
+}
+.hero-head{
+  color:#000;
+}
+.hero{
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  margin-top:30%;
+  height:70vh;
+}
+.writing-pic{
+  margin:0 auto;
+  width:16em;
+  height:16em;
+  margin:12px;
+}
+
+.charge{
+  padding:18px;
+  text-align:center;
+  color:#000;
+}
+.start-btn{
+  background-color:#000;
+  padding:13px;
+  width:70vw;
+  border-radius:50px;
+  outline:none;
+  border:2px solid #E16A14;
+  color:#fff;
+}
+.info-section{
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  background-color:#000;
+  color:#000;
+  margin-top: 20%;
+}
+.card{
+  width:85vw;
+  display:flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  padding: 30px;
+  height:40vh;
+  color:#fff;
+  border:1px solid #E16A14;
+  border-radius:14px;
+  margin:15px;
+}
+.card > i{
+  padding:23px;
+  background-color: #E16A14;
+  border-radius:50%;
+  border:4px solid #975250;
+  font-size: 1.45em;
+  transition:all 350ms;
+  color:#fff;
+}
+.card > p{
+  width:90%;
+  font-size: 0.786em;
+  text-align: center;
+  color:#fff;
+}
+  </style>
+  <title>NoteHaven | Home</title>
+</head>
+
+<body>
+  <div id="app">
+    <nav class="nav-bar">
+      <span class="nav-brand">
+      <p class="nav-head">NoteHaven</p>
+      </span>
+    </nav>
+    <main class="hero">
+      <img src="write.svg" alt="Person writing in NoteHaven" class="writing-pic">
+      <h3 class="hero-head">Welcome to NoteHaven 😊 </h3>
+      <p class="charge">Capture your ideas, stay organized, and keep your notes ready anytime."</p>
+      <button class="start-btn">Start Writing✍️</button>
+    </main>
+    <section class="info-section">
+      <card text="Create stylized and personalized notes that truly reflect your unique ideas, style, and creativity." clss="fa-solid fa-pen-nib"></card>
+      <card text="Organize your thoughts effortlessly and access them anytime, anywhere." clss="fa-regular fa-folder"></card>
+      <card text="Stay on track with smart, customizable note templates for every need." clss="fa-solid fa-check-double"></card>
+    </section>
+  </div>
+  <script type="module">
+    import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+const Card = {
+  template:`<div class="card">
+    <i v-bind:class="clss"></i>
+    <p class="card-text">{{text}}</p>
+  </div>`,
+  props:{
+    clss:{
+      type:String,
+      required: true,
+    },
+    text:{
+      type:String,
+      required: true,
+    }
+    
+  },
+  mounted(){
+    window.addEventListener('scroll', () => {
+    const elements = document.querySelectorAll('.card');
+    elements.forEach((element) => {
+    const rect = element.getBoundingClientRect();
+    if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
+        document.querySelector('.nav-bar').style.backgroundColor = "#fff";
+        document.querySelector('.nav-head').style.color = "#000";
+        
+    }else{
+      document.querySelector('.nav-bar').style.backgroundColor = "#000";
+      document.querySelector('.nav-head').style.color = "#fff";
+    }
+    });
+});
+  const icons = document.querySelectorAll('i');
+  let check = false
+  icons.forEach(icon => {
+    icon.addEventListener('click',() =>{
+      check = !check;
+if (check) {
+  icon.style.transform = 'scale(1.3)';
+} else {
+  icon.style.transform = 'scale(1)';
+}
+    });
+    
+  });
+  const startBtn = document.querySelector('.start-btn');
+  startBtn.addEventListener('click',()=>{
+    document.location.href = 'home.html'
+  })
+  }
+}
+
+
+const app = createApp({});
+app.component('card',Card);
+app.mount('#app');
+
+
+
+  </script>
+</body>
+
+</html>

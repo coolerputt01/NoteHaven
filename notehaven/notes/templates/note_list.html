@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>NoteHaven | Home</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    #app{
+      
+    }
+    body, html {
+      background-color: #fff;
+    }
+
+    .nav-bar {
+      background-color: #000;
+      width: 100vw;
+      height: 10vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+      position: fixed;
+      top: 0;
+      transition: all 350ms;
+      z-index:10;
+    }
+
+    .nav-brand > p {
+      font-size: 1.5em;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+      color: #fff;
+    }
+
+    .fa-gear {
+      font-size: 1.7em;
+      color: transparent;
+      -webkit-text-stroke: 1px #fff;
+      transition: all 350ms;
+    }
+
+    .fa-gear:hover {
+      color: #fff;
+      -webkit-text-stroke: 0px;
+    }
+
+    main {
+      margin-top: 13vh;
+      
+    }
+
+    .section-header {
+      text-align: center;
+      margin: 16px;
+      font-size: 1.8em;
+      font-weight: 600;
+    }
+
+    .notes-list {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5%;
+      z-index:1;
+    }
+
+    .note {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: row;
+      width: 90%;
+      gap: 8%;
+      background-color: #f9f9f9;
+      padding: 15px;
+      margin-bottom: 10px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    .note-title {
+      font-size: 1.2em;
+      font-weight: 600;
+    }
+
+    .note-full {
+      font-size: 0.9em;
+      color: #555;
+    }
+
+    .creation-date {
+      font-size: 0.8em;
+      color: #888;
+    }
+    .add-notes{
+      width:4em;
+      height:4em;
+      background-color:#fff;
+      border-radius:50%;
+      box-shadow: 5px 5px 23px 5px rgba(0,0,0,0.09);
+      position: fixed;
+      left:calc(100%/2.5);
+      bottom:5%;
+      z-index:100;
+    }
+    .cancel-notes{
+      width:4em;
+      height:4em;
+      background-color:#fff;
+      border-radius:50%;
+      box-shadow: 5px 5px 23px 5px rgba(0,0,0,0.09);
+      position: fixed;
+      right:calc(100%/20);
+      bottom:5%;
+      display:none;
+      z-index: 1001;
+    }
+    .fa-plus{
+      position: absolute;
+      left:calc(100%/5);
+      top:calc(100%/5);
+      font-size:2em;
+      font-weight: normal;
+      padding:5px;
+    }
+      .fa-x{
+      position: absolute;
+      left:calc(100%/3);
+      top:calc(100%/3);
+      font-size: 1.3em;
+      font-weight: bold;
+      padding:1px;
+      color:red;
+    }
+    .delete{
+      padding:12px;
+      box-shadow: 5px 5px 23px 5px rgba(0,0,0,0.09);
+      border-radius: 14px;
+      display:none;
+    }
+    .delete-btn{
+      color:red;
+    }
+    .notes-add{
+      display:flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction:column;
+      gap:8%;
+      padding:18px;
+      background-color:#f9f9f9;
+      position:fixed;
+      border-radius:28px;
+      display:none;
+      margin:0 auto;
+      z-index:1000;
+    }
+    #blogDetails{
+      background-color:#fff;
+      border:none;
+      outline:none;
+      border-radius:28px;
+      padding:28px;
+    }
+    .note-input{
+      border:none;
+      outline:none;
+      padding:18px;
+      border-radius:56px;
+      margin-bottom:10%;
+    }
+    .add-note{
+      padding: 15px;
+      border-radius:28px;
+      color:#fff;
+      background-color:#000;
+      border:none;
+      outline:none;
+      margin:15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="app">
+    <nav class="nav-bar">
+      <span class="nav-brand">
+        <p>All Notes</p>
+      </span>
+      <i class="fa-solid fa-gear"></i>
+    </nav>
+    <main>
+        <form class="notes-add">
+        <input type="text" placeholder="Enter Note Title" class="note-input">
+      <textarea id="blogDetails" cols="23" rows="15" placeholder="Enter your note description here"></textarea>
+      <button type="submit" class="add-note">Add Note</button>
+      </form>
+      <div class="notes-list">
+        {% for note in notes %}
+        <div class="note">
+          <div>
+            <h3 class="note-title">{{note.title}}</h3>
+            <p class="creation-date">{{note.createdAt}}</p>
+            <p class="note-full">{{note.note}}</p>
+          </div>
+          <div class="delete">
+            <p class="delete-btn">Delete</p>
+          </div>
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        {% endfor %}
+        </div>
+        
+      </div>
+    </main>
+    <div class="add-notes">
+      <i class="fa-solid fa-plus"></i>
+    </div>
+    <div class="cancel-notes">
+      <i class="fa-solid fa-x"></i>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+    
+    const app = createApp({
+      mounted() {
+        // Truncate note content
+        const noteFulls = document.querySelectorAll('.note-full');
+        noteFulls.forEach(noteFull => {
+          noteFull.textContent = noteFull.textContent.slice(0, 37) + '...';
+        });
+
+        
+        
+        const menuBtns = document.querySelectorAll('.fa-ellipsis-vertical');
+    menuBtns.forEach((menuBtn) => {
+  menuBtn.addEventListener('click', () => {
+    console.log('hi');
+    const deleteBtn = menuBtn.parentElement.querySelector('.delete'); // Locate sibling `.delete`
+    deleteBtn.style.display = deleteBtn.style.display === 'none' ? 'block' : 'none'; // Toggle visibility
+  });
+});
+const cancelButton = document.querySelector('.cancel-notes');
+
+const addButton = document.querySelector('.add-notes');
+    
+    addButton.addEventListener('click',()=>{
+      console.log('hello');
+      const form = document.querySelector('.notes-add');
+      form.style.display = 'block';
+      addButton.style.display = 'none';
+      cancelButton.style.display = "block";
+      document.querySelector('.notes-list').style.filter = 'blur(10px)'
+    });
+    cancelButton.addEventListener('click', () => {
+  console.log('hello2');
+const form = document.querySelector('.notes-add');
+  form.style.display = 'none';
+  addButton.style.display = 'block';
+  const cancelButton = document.querySelector('.cancel-notes');
+  document.querySelector('.cancel-notes').style.display = "none";
+  document.querySelector('.notes-list').style.filter = 'none'
+
+});
+}
+      });
+    app.mount('#app');
+    
+  </script>
+</body>
+
+</html>
