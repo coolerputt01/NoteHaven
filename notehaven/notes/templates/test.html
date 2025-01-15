@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notes App</title>
+</head>
+<body>
+    <h1>All Notes</h1>
+    <ul id="notes"></ul>
+
+    <h2 id="form-heading">Create Note</h2>
+    <form id="note-form">
+        <input type="hidden" id="note-id">
+        <label>Title:</label>
+        <input type="text" id="title"><br>
+        <label>Content:</label>
+        <textarea id="content"></textarea><br>
+        <button type="submit">Save</button>
+    </form>
+
+    <script>
+        const apiUrl = '/api/notes/';
+        const notesList = document.getElementById('notes');
+        const form = document.getElementById('note-form');
+        const titleInput = document.getElementById('title');
+        const contentInput = document.getElementById('content');
+        const noteIdInput = document.getElementById('note-id');
+        const formHeading = document.getElementById('form-heading');
+
+        // Fetch all notes
+        function fetchNotes() {
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    notesList.innerHTML = '';
+                    data.forEach(note => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `
+                            <h3>${note.title}</h3>
+                            <p>${note.content}</p>
+                            <button onclick="editNote(${note.id}, '${note.title}', '${note.content}')">Edit</button>
+                            <button onclick="deleteNote(${note.id})">Delete</button>
+                        `;
+                        notesList.appendChild(li);
+                    });
+                })
+                .catch(error => console.error('Error fetching notes:', error));
+        }
+
+        // Create or update a note
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const noteId = noteIdInput.value;
+            const method = noteId ? 'PUT' : 'POST';
+            const url = noteId ? `${apiUrl}${noteId}/` : apiUrl;
+
+            fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    title: titleInput.value,
+                    content: contentInput.value,
+                }),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(() => {
+                    form.reset();
+                    formHeading.innerText = 'Create Note';
+                    fetchNotes();
+                })
+                .catch(error => console.error('Error saving note:', error));
+        });
+
+        // Edit note
+        function editNote(id, title, content) {
+            noteIdInput.value = id;
+            titleInput.value = title;
+            contentInput.value = content;
+            formHeading.innerText = 'Edit Note';
+        }
+
+        // Delete note
+        function deleteNote(id) {
+            fetch(`${apiUrl}${id}/`, {
+                method: 'DELETE',
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    fetchNotes();
+                })
+                .catch(error => console.error('Error deleting note:', error));
+        }
+
+        // Initial fetch
+        fetchNotes();
+    </script>
+</body>
+</html>
